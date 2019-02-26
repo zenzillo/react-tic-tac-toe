@@ -87,7 +87,7 @@ class Game extends React.Component {
 
   	const moves = history.map((step, move) => {
   		const desc = move ?
-  			'Go to move #' + move :
+  			'Go to move #' + move + getMoveLocation(move, history):
   			'Go to game start';
   		return (
   		    <li key={move}>
@@ -138,6 +138,41 @@ function calculateWinner(squares) {
     }
   }
   return null;
+}
+
+function getMoveLocation(move, history) {
+	/* compare squares to historical - 1 to see where the newest move is */
+	const current = history[move].squares;
+	const previous = history[move-1].squares;
+
+	for (var i = current.length - 1; i >= 0; i--) {
+		if (current[i] !== previous[i]) {
+			return getPositionCoordinates(i);
+		}
+	}
+
+	return "--" + move + "--" + history[move].squares;
+}
+
+function getPositionCoordinates(position) {
+	/* Get position of coordinates with given array value */
+	var row = 0;
+	var col = 0;
+
+	if (position < 3) {
+		row = 1;
+		col = position + 1;
+	}
+	else if ((position >= 3) && (position <= 5)) {
+		row = 2;
+		col = position - 2;
+	}
+	else if ((position >= 6) && (position <= 8)) {
+		row = 3;
+		col = position - 5;
+	}
+
+	return "[" + col + ", " + row + "]";
 }
 
 // ========================================

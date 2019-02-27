@@ -150,7 +150,7 @@ function calculateWinner(squares) {
 }
 
 function getMoveLocation(move, history) {
-	/* compare squares to historical - 1 to see where the newest move is */
+	/* Compare current squares to previous to see where is the newest move */
 	const current = history[move].squares;
 	const previous = history[move-1].squares;
 
@@ -159,8 +159,6 @@ function getMoveLocation(move, history) {
 			return getPositionCoordinates(i);
 		}
 	}
-
-	return "--" + move + "--" + history[move].squares;
 }
 
 function getPositionCoordinates(position) {

@@ -21,25 +21,28 @@ class Board extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
-      </div>
-    );
+  	const rows = 3;
+  	const cols = 3;
+  	var count = 0; // starting count of squares
+
+  	// initialize board
+  	var board = [];
+
+  	for (let i = 0; i < rows; i++) {
+		var square = [];
+		for (let i = 0; i < cols; i++) {
+			square.push(this.renderSquare(count));
+			count++;
+		}
+		// push row to board
+		board.push(<div className="board-row">{square}</div>);
+	}
+
+	return (
+	    <div>
+			{board}
+	    </div>
+	);
   }
 }
 
@@ -91,7 +94,7 @@ class Game extends React.Component {
   			'Go to game start';
 
   		var active = "";
-  		if (this.state.stepNumber == move) {
+  		if (this.state.stepNumber === move) {
   			active = "btn-active";
   		}
 
